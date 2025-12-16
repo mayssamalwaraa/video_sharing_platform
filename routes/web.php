@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VideoContoller;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,3 +16,4 @@ Route::middleware([
         return view('layouts.main');
     })->name('dashboard');
 });
+Route::resource('/videos',VideoContoller::class);
