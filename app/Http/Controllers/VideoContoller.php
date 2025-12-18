@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ConvertVideoForStreaming;
+use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class VideoContoller extends Controller
 {
@@ -27,7 +31,30 @@ class VideoContoller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'=>'required',
+            'image'=>'image|required',
+            'video'=>'required',
+
+        ]);
+        $randomPath =  Str::random(16);
+        $videoPath = $randomPath. '.'.$request->video->getClientOriginalExtension();
+        $imagePath = $randomPath. '.'.$request->image->getClientOriginalExtension();
+        
+
+        $request->video->storeAs('/',$videoPath,'public');
+        $request->image->storeAs('/',$imagePath,'public');
+
+        $video = Video::create([
+            'disk'=>'public',
+            'video_path'=>$videoPath,
+            'image_path'=>$imagePath,
+            'title'=>$request->title,
+            'user_id'=>Auth::id(),
+        ]);
+        ConvertVideoForStreaming::dispatch($video);
+        return redirect()->back()->with('success','سيكون مقطع الفيديو متوفر في أقرب فرصة عندما ننتهي من معالجته');
+
     }
 
     /**
