@@ -15,7 +15,7 @@ class VideoContoller extends Controller
      */
     public function index()
     {
-        //
+        $videos = Auth::user()->videos->sortByDesc('created_at');
     }
 
     /**
