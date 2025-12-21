@@ -3,19 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ConvertVideoForStreaming;
+use App\Models\Convertedvideo;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class VideoContoller extends Controller
 {
+    public $video;
+    public function __construct(Video $video)
+    {
+        $this->video = $video;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $videos = Auth::user()->videos->sortByDesc('created_at');
+        $title = 'آخر الفيديوهات المرفوعة';
+        return view('videos.my-videos',compact('videos','title'));
     }
 
     /**
@@ -86,6 +95,26 @@ class VideoContoller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $video = $this->video::findOrFail($id);
+        $convertedVideos =Convertedvideo::where('video_id',$id)->get();
+
+        foreach($convertedVideos as $convertedVideo){
+            Storage::delete([
+                $convertedVideo->mp4_Format_240,
+                $convertedVideo->mp4_Format_360,
+                $convertedVideo->mp4_Format_480,
+                $convertedVideo->mp4_Format_720,
+                $convertedVideo->mp4_Format_1080,
+                $convertedVideo->webm_Format_240,
+                $convertedVideo->webm_Format_360,
+                $convertedVideo->webm_Format_480,
+                $convertedVideo->webm_Format_720,
+                $convertedVideo->webm_Format_1080,
+                $video->image_path
+
+            ]);
+            $video->delete();
+            return back()->with('success','تم حذف مقطع الفيديو بنجاح');
+        }
     }
 }
