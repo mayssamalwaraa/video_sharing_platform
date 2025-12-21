@@ -17,3 +17,4 @@ Route::middleware([
     })->name('dashboard');
 });
 Route::resource('/videos',VideoContoller::class);
+Route::get('/video/search',[VideoContoller::class,'search'])->name('video.search');
