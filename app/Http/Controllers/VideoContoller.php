@@ -71,7 +71,8 @@ class VideoContoller extends Controller
      */
     public function show(string $id)
     {
-        //
+        $video = $this->video::findOrFail($id);
+        return view('videos.show-video',compact('video'));
     }
 
     /**

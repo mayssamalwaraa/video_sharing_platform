@@ -27,7 +27,7 @@
                                 @php
                                     $seconds_add_zero = sprintf("%02d", $video->seconds);
                                 @endphp
-                                <a href="/videos/{{$video->id}}">
+                                <a href="{{route('videos.show',$video->id)}}">
                                     <div class="image-container">
                                     <img src="{{ Storage::url($video->image_path) }}" class="card-img-top" alt="...">
                                     <div class="play-icon-overlay">
@@ -40,7 +40,7 @@
                                     
                                 </a>
                             </div>
-                            <a href="/videos/{{$video->id}}">
+                            <a href="{{route('videos.show',$video->id)}}">
                                 <div class="card-body p-0">
                                     <p class="card-title">{{ Str::limit($video->title, 60) }}</p>
                                 </div>
