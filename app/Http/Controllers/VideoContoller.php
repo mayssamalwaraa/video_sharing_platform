@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ConvertVideoForStreaming;
 use App\Models\Convertedvideo;
+use App\Models\Like;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,8 +72,17 @@ class VideoContoller extends Controller
      */
     public function show(string $id)
     {
+        $countLike = Like::where('video_id',$id)->where('like','1')->count();
+        $countDislike = Like::where('video_id',$id)->where('like','0')->count();
+
+        $user = Auth::user();
+        if(Auth::check()){
+            $userLike = $user->likes->where('video_id',$id)->first();
+        }else{
+            $userLike = 0;
+        }
         $video = $this->video::findOrFail($id);
-        return view('videos.show-video',compact('video'));
+        return view('videos.show-video',compact('video','countLike','countDislike','userLike'));
     }
 
     /**
