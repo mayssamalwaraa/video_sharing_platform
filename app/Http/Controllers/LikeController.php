@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Like;
+use App\Models\Video;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class LikeController extends Controller
+{
+    public function likeVideo(Request $request){
+        $videoId = $request->videoId;
+        $isLike = $request->isLike === 'true';
+        $update = false ;
+
+        $video = Video::findOrFail($videoId);
+        if(!$video){
+            return null;
+        }
+        $user = Auth::user();
+        $like = $user->likes->where('video_id',$videoId)->first();
+
+        if($like){
+            $alreadyLike = $like->like;
+            $update = true;
+            if($alreadyLike == $isLike){
+                $like->delete();
+            }
+        }else{
+            $like = new Like();
+
+        }
+        $like->like = $isLike;
+        $like->user_id = $user->id;
+        $like->video_id = $video->id;
+        if($update){
+            $like->update();
+        }else{
+            $like->save();
+        }
+        $countLike = Like::where('video_id',$video->id)->where('like','1')->count();
+        $countDislike = Like::where('video_id',$video->id)->where('like','0')->count();
+
+        return response()->json(['countLike'=>$countLike,'countDislike'=>$countDislike]);
+
+    }
+}

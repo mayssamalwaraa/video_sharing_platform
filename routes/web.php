@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\VideoContoller;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,7 @@ Route::middleware([
         return view('layouts.main');
     })->name('dashboard');
 });
-Route::resource('/videos',VideoContoller::class);
+Route::get('/videos/{id}',[VideoContoller::class,'show']);
+Route::resource('/videos',VideoContoller::class)->middleware('auth')->except(['show']);
 Route::get('/video/search',[VideoContoller::class,'search'])->name('video.search');
+Route::post('/like',[LikeController::class,'likeVideo'])->name('like');
