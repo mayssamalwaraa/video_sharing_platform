@@ -94,7 +94,7 @@ class ConvertVideoForStreaming implements ShouldQueue
 
     }
     private function getFileName($filename,$type){
-        return preg_replace('/\\[^.\\s}{3,4}$/','',$filename).$type;
+        return preg_replace('/\\.[^.\\s]{3,4}$/', '', $filename) .$type;  
     }
     public function handle(): void
     {
