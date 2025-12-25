@@ -134,7 +134,7 @@
 @endSection
 
 @section('script')
-{{-- <script>
+ <script>
     document.getElementById("qualityPick").onchange = function() {changeQulity()};
     function changeQulity() {
         var video = document.getElementById("videoPlayer");
@@ -170,7 +170,7 @@
         
     }
 </script>
-
+{{-- 
 <script>
     $('.like').on('click', function(event) {
         var token = '{{ Session::token() }}';
@@ -359,5 +359,5 @@
             })  
         }      
     });
-</script> --}}
+</script>  --}}
 @endSection
