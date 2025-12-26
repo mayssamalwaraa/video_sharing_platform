@@ -68,13 +68,7 @@
                         <span id="dislikeNumber">{{$countDislike}}</span>
                     @endif
                 </a> 
-                {{-- @forelse ($video->views as $view)
-                    <span class="float-right">عدد المشاهدات <span class="viewsNumber">{{$view->views_number}}</span></span>
-                    
-                @empty
-                    <span class="float-right">عدد المشاهدات <span class="viewsNumber">0</span></span>
-                    
-                @endforelse --}}
+                
                  @foreach ($video->views as $view)
                     <span class="float-right">عدد المشاهدات <span class="viewsNumber">{{$view->views_number}}</span></span>
                 @endforeach
@@ -84,7 +78,7 @@
                 </div> 
             </div> 
 
-            {{-- <div class="mt-4 px-2">
+            <div class="mt-4 px-2">
                 <div class="comments">
                     <div class="mb-3">
                         <span>التعليقات</span>
@@ -96,7 +90,7 @@
                         <div class="commentAlert mt-5">
                     
                         </div>
-
+                        {{-- 
                         <div class="commentBody">
                             @foreach($comments as $comment)
                                 <div class="card mt-5 mb-3">
@@ -277,7 +271,7 @@
         }) 
 	});
 </script>
-{{-- 
+
 <script>
     $('.saveComment').on('click', function(event) {
         var token = '{{ Session::token() }}';
@@ -328,46 +322,10 @@
                     videoId: videoId, 
                     _token: token
                 },
-                success : function(data) { 
-                    $("#comment").val('');
-
-                    destroyUrl = "{{route('comment.destroy', 'des_id')}}";
-                    destroy = destroyUrl.replace('des_id', data.commentId);
-
-                    editUrl = "{{route('comment.edit', 'id')}}";
-                    url = editUrl.replace('id', data.commentId);
-
-                    var html='  <div class="card mt-5 mb-3">\
-                                    <div class="card-body">\
-                                        <div class="row">\
-                                            <div class="col-2">\
-                                                <img src="'+data.userImage+'" width="150px" class="rounded-full"/>\
-                                            </div>\
-                                            <div class="col-10">\
-                                                <form method="GET" action="'+destroy+'">\
-                                                    @csrf\
-                                                    @method('DELETE')\
-                                                    <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>\
-                                                </form>\
-                                                <form method="GET" action="'+url+'">\
-                                                    @csrf\
-                                                    @method('PATCH')\
-                                                    <button type="submit" class="float-left"><i class="far fa-edit text-success fa-lg ml-3"></i></button>\
-                                                </form>\
-                                                <p class="mt-3 mb-2"><strong>'+data.userName+'</strong></p>\
-                                                <i class="far fa-clock"></i> <span class="comment_date text-secondary">'+data.commentDate+'</span>\
-                                                <p class="mt-3" >'+comment+'</p>\
-                                            </div>\
-                                        </div>\
-                                    </div>\
-                                </div>';
-
-                    $(".commentBody").prepend(html);
-                    
-                      
-                }
+                
+                
             })  
         }      
     });
-</script>  --}}
+</script>  
 @endSection

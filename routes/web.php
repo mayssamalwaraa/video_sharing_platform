@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\VideoContoller;
+use App\Http\Controllers\CommentController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,4 +24,5 @@ Route::resource('/videos',VideoContoller::class)->middleware('auth');
 Route::get('/video/search',[VideoContoller::class,'search'])->name('video.search');
 Route::post('/like',[LikeController::class,'likeVideo'])->name('like');
 Route::post('/view',[VideoContoller::class,'addView'])->name('view');
+Route::post('/comment',[CommentController::class,'saveComment'])->name('comment');
 
