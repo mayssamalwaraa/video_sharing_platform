@@ -90,7 +90,7 @@
                         <div class="commentAlert mt-5">
                     
                         </div>
-                        {{-- 
+                        
                         <div class="commentBody">
                             @foreach($comments as $comment)
                                 <div class="card mt-5 mb-3">
@@ -103,13 +103,13 @@
                                                 @if (Auth::check())
                                                     @if ($comment->user_id == auth()->user()->id || auth()->user()->administration_level > 0)
                                                         @if (!auth()->user()->block)
-                                                            <form method="GET" action="{{route('comment.destroy', $comment->id)}}" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف التعليق هذا؟')">
+                                                            <form method="GET" action="#" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف التعليق هذا؟')">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>
                                                             </form>
 
-                                                            <form method="GET" action="{{route('comment.edit', $comment->id)}}">
+                                                            <form method="GET" action="#">
                                                                 @csrf
                                                                 @method('PATCH')
                                                                 <button type="submit" class="float-left"><i class="far fa-edit text-success fa-lg ml-3"></i></button>
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div> 
 
         </div>
     </div>
@@ -323,7 +323,40 @@
                     _token: token
                 },
                 
-                
+                success : function(data) { 
+                    $("#comment").val('');
+
+                    
+
+                    var html='  <div class="card mt-5 mb-3">\
+                                    <div class="card-body">\
+                                        <div class="row">\
+                                            <div class="col-2">\
+                                                <img src="'+data.userImage+'" width="150px" class="rounded-full"/>\
+                                            </div>\
+                                            <div class="col-10">\
+                                                <form method="GET" action="''">\
+                                                    @csrf\
+                                                    @method('DELETE')\
+                                                    <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>\
+                                                </form>\
+                                                <form method="GET" action="''">\
+                                                    @csrf\
+                                                    @method('PATCH')\
+                                                    <button type="submit" class="float-left"><i class="far fa-edit text-success fa-lg ml-3"></i></button>\
+                                                </form>\
+                                                <p class="mt-3 mb-2"><strong>'+data.userName+'</strong></p>\
+                                                <i class="far fa-clock"></i> <span class="comment_date text-secondary">'+data.commentDate+'</span>\
+                                                <p class="mt-3" >'+comment+'</p>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>';
+
+                    $(".commentBody").prepend(html);
+                    
+                      
+                }
             })  
         }      
     });
