@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('video_id')->references('id')->on('videos')->onDelete('cascade');
-            $table->bigInteger('views');
+            $table->bigInteger('views_number');
             $table->timestamps();
         });
     }

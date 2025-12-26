@@ -68,10 +68,16 @@
                         <span id="dislikeNumber">{{$countDislike}}</span>
                     @endif
                 </a> 
-
-                 {{-- @foreach ($video->views as $view)
+                {{-- @forelse ($video->views as $view)
                     <span class="float-right">عدد المشاهدات <span class="viewsNumber">{{$view->views_number}}</span></span>
-                @endforeach --}}
+                    
+                @empty
+                    <span class="float-right">عدد المشاهدات <span class="viewsNumber">0</span></span>
+                    
+                @endforelse --}}
+                 @foreach ($video->views as $view)
+                    <span class="float-right">عدد المشاهدات <span class="viewsNumber">{{$view->views_number}}</span></span>
+                @endforeach
 
                 <div class="loginAlert mt-5">
                     
@@ -250,7 +256,7 @@
         }       
     });
 </script>
-{{-- 
+
 <script>
 	$('#videoPlayer').on('ended', function(e) {
 		var token = '{{ Session::token() }}';
@@ -271,7 +277,7 @@
         }) 
 	});
 </script>
-
+{{-- 
 <script>
     $('.saveComment').on('click', function(event) {
         var token = '{{ Session::token() }}';

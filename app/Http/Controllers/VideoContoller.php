@@ -6,6 +6,7 @@ use App\Jobs\ConvertVideoForStreaming;
 use App\Models\Convertedvideo;
 use App\Models\Like;
 use App\Models\Video;
+use App\Models\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -61,6 +62,11 @@ class VideoContoller extends Controller
             'image_path'=>$imagePath,
             'title'=>$request->title,
             'user_id'=>Auth::id(),
+        ]);
+        $view = View::create([
+            'video_id'=>$video->id,
+            'user_id'=>Auth::id(),
+            'views_number'=>0
         ]);
         ConvertVideoForStreaming::dispatch($video);
         return redirect()->back()->with('success','سيكون مقطع الفيديو متوفر في أقرب فرصة عندما ننتهي من معالجته');
@@ -150,5 +156,13 @@ class VideoContoller extends Controller
         $title = 'عرض نتائج البحث عن'.$request->term;
         return view('videos.my-videos',compact('videos','title'));
             
+    }
+     public function addView(Request $request){
+        $views = View::where('video_id',$request->videoId)->first();
+        $views->views_number++;
+        $views->save();
+        $viewsNumber = $views->views_number;
+        return response()->json(['viewsNumbers'=>$viewsNumber]);
+        
     }
 }

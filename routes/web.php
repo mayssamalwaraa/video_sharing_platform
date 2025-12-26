@@ -17,7 +17,9 @@ Route::middleware([
         return view('layouts.main');
     })->name('dashboard');
 });
-Route::get('/videos/{id}',[VideoContoller::class,'show']);
-Route::resource('/videos',VideoContoller::class)->middleware('auth')->except(['show']);
+// Route::get('/videos/{id}',[VideoContoller::class,'show']);
+Route::resource('/videos',VideoContoller::class)->middleware('auth');
 Route::get('/video/search',[VideoContoller::class,'search'])->name('video.search');
 Route::post('/like',[LikeController::class,'likeVideo'])->name('like');
+Route::post('/view',[VideoContoller::class,'addView'])->name('view');
+
