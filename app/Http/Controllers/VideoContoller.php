@@ -88,7 +88,8 @@ class VideoContoller extends Controller
             $userLike = 0;
         }
         $video = $this->video::findOrFail($id);
-        return view('videos.show-video',compact('video','countLike','countDislike','userLike'));
+        $comments = $video->comments->sortByDesc('created_at');
+        return view('videos.show-video',compact('video','countLike','countDislike','userLike','comments'));
     }
 
     /**
