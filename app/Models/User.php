@@ -84,6 +84,6 @@ class User extends Authenticatable
 
     }
     public function videoInHistory(){
-        return $this->belongsToMany(Video::class,'video_user','user_id','video_id')->withTimestamps();
+        return $this->belongsToMany(Video::class,'video_user','user_id','video_id')->withTimestamps()->withPivot('id');
     }
 }

@@ -4,7 +4,7 @@
     <div class="mx-4">
         @if($videos->count() > 0)
         <div class="row justify-content-center">
-            <form class="form-inline col-md-6 justify-content-center" method="POST" action="#" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف السجل بشكلٍ كامل؟')">
+            <form class="form-inline col-md-6 justify-content-center" method="POST" action="{{ route('history.destroyAll')}}" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف السجل بشكلٍ كامل؟')">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-secondary mb-2">حذف السجل</button>
@@ -51,10 +51,10 @@
 
                                     @auth
                                         @if ($video->user_id == auth()->user()->id || auth()->user()->administration_level > 0)
-                                            <form method="POST" action="#" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف مقطع الفيديو هذا؟')">
+                                            <form method="POST" action="{{route('history.destroy', $video->pivot->id)}}" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف مقطع الفيديو هذا؟')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>
+                                                <button type="submit" class="float-left"><i class="far bi bi-trash text-danger"></i></button>
                                             </form>
                                         @endif
                                     @endauth

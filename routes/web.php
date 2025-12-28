@@ -31,5 +31,8 @@ Route::patch('/comment/{id}',[CommentController::class,'update'])->name('comment
 Route::get('/comment/{id}',[CommentController::class,'destroy'])->name('comment.destroy');
 
 Route::get('/history',[HistoryContoller::class,'index'])->name('history');
+Route::delete('/history/{id}',[HistoryContoller::class,'destroy'])->name('history.destroy');
+Route::delete('/destroyAll',[HistoryContoller::class,'destroyAll'])->name('history.destroyAll');
+
 
 
