@@ -4,11 +4,12 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\VideoContoller;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HistoryContoller;
+use App\Http\Controllers\MainContoller;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::middleware([
     'auth:sanctum',
@@ -20,6 +21,9 @@ Route::middleware([
     })->name('dashboard');
 });
 // Route::get('/videos/{id}',[VideoContoller::class,'show']);
+Route::get('/',[MainContoller::class,'index'])->name('main');
+Route::get('/main/{channel}/videos',[MainContoller::class,'channelVideos'])->name('main.channels.videos');
+
 Route::resource('/videos',VideoContoller::class)->middleware('auth');
 Route::get('/video/search',[VideoContoller::class,'search'])->name('video.search');
 Route::post('/like',[LikeController::class,'likeVideo'])->name('like');

@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item me-5" style="list-style: none">
-                <a class="nav-link active" aria-current="page" href="{{ url('/') }}">
+                <a class="nav-link active" aria-current="page" href="{{ route('main') }}">
                     <i class="bi bi-house"></i>الصفحة الرئيسية</a>
             </li>
             <li class="nav-item me-5" style="list-style: none">
