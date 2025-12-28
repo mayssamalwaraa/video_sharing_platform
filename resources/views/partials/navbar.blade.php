@@ -14,7 +14,7 @@
                     <i class="bi bi-house"></i>الصفحة الرئيسية</a>
             </li>
             <li class="nav-item me-5" style="list-style: none">
-                <a class="nav-link active" aria-current="page" href="{{ url('/') }}">
+                <a class="nav-link active" aria-current="page" href="{{ route('history') }}">
                     <i class="bi bi-clock-history"></i>
                  سجل المشاهدة</a>
             </li>

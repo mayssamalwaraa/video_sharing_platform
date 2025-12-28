@@ -78,6 +78,7 @@ class VideoContoller extends Controller
      */
     public function show(string $id)
     {
+        $videoId = Video::findOrFail($id);
         $countLike = Like::where('video_id',$id)->where('like','1')->count();
         $countDislike = Like::where('video_id',$id)->where('like','0')->count();
 
@@ -86,6 +87,9 @@ class VideoContoller extends Controller
             $userLike = $user->likes->where('video_id',$id)->first();
         }else{
             $userLike = 0;
+        }
+        if(Auth::check()){
+            Auth::user()->videoInHistory()->attach($videoId);
         }
         $video = $this->video::findOrFail($id);
         $comments = $video->comments->sortByDesc('created_at');
