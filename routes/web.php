@@ -8,9 +8,9 @@ use App\Http\Controllers\HistoryContoller;
 use App\Http\Controllers\MainContoller;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/admin', function () {
+    return view('theme.default');
+});
 
 Route::middleware([
     'auth:sanctum',
