@@ -47,7 +47,7 @@
                         @if ($userLike->like == 1)
                         <i class="bi bi-hand-thumbs-up liked"></i> <span id="likeNumber">{{$countLike}}</span>
                         @else
-                            <i class="bi bi-hand-thumbs-up"></i><span id="likeNumber">{{$countLike}}</span>
+                            <i class="bi bi-hand-thumbs-up "></i> <span id="likeNumber">{{$countLike}}</span>
                         @endif
                     @else
                         <i class="bi bi-hand-thumbs-up"></i> <span id="likeNumber">{{$countLike}}</span>
@@ -57,26 +57,23 @@
                 <a href="#" class="like mr-3">
                     @if($userLike)
                         @if ($userLike->like == 0)
-                            <i class="bi bi-hand-thumbs-down liked"></i>
-                         <span id="dislikeNumber">{{$countDislike}}</span>
+                            <i id="like_down" class="bi bi-hand-thumbs-down liked"></i><span id="dislikeNumber">{{$countDislike}}</span>
                         @else
-                            <i class="bi bi-hand-thumbs-down"></i>
-                             <span id="dislikeNumber">{{$countDislike}}</span>
+                            <i id="like_down" class="bi bi-hand-thumbs-down "></i><span id="dislikeNumber">{{$countDislike}}</span>
                         @endif
                     @else
-                        <i class="bi bi-hand-thumbs-down"></i>
-                        <span id="dislikeNumber">{{$countDislike}}</span>
+                        <i id="like_down" class="bi bi-hand-thumbs-down "></i><span id="dislikeNumber">{{$countDislike}}</span>
                     @endif
-                </a> 
-                
-                 @foreach ($video->views as $view)
+                </a>
+
+                @foreach ($video->views as $view)
                     <span class="float-right">عدد المشاهدات <span class="viewsNumber">{{$view->views_number}}</span></span>
                 @endforeach
 
                 <div class="loginAlert mt-5">
                     
-                </div> 
-            </div> 
+                </div>
+            </div>
 
             <div class="mt-4 px-2">
                 <div class="comments">
@@ -90,7 +87,7 @@
                         <div class="commentAlert mt-5">
                     
                         </div>
-                        
+
                         <div class="commentBody">
                             @foreach($comments as $comment)
                                 <div class="card mt-5 mb-3">
@@ -128,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
 
         </div>
     </div>
@@ -138,7 +135,8 @@
 
 @section('script')
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
- <script>
+
+<script>
     document.getElementById("qualityPick").onchange = function() {changeQulity()};
     function changeQulity() {
         var video = document.getElementById("videoPlayer");
@@ -322,7 +320,6 @@
                     videoId: videoId, 
                     _token: token
                 },
-                
                 success : function(data) { 
                     $("#comment").val('');
 
@@ -335,12 +332,12 @@
                                                 <img src="'+data.userImage+'" width="150px" class="rounded-full"/>\
                                             </div>\
                                             <div class="col-10">\
-                                                <form method="GET" action="''">\
+                                                <form method="GET" action="#">\
                                                     @csrf\
                                                     @method('DELETE')\
                                                     <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>\
                                                 </form>\
-                                                <form method="GET" action="''">\
+                                                <form method="GET" action="#">\
                                                     @csrf\
                                                     @method('PATCH')\
                                                     <button type="submit" class="float-left"><i class="far fa-edit text-success fa-lg ml-3"></i></button>\
@@ -360,5 +357,5 @@
             })  
         }      
     });
-</script>  
+</script>
 @endSection

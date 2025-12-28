@@ -21,14 +21,17 @@ class CommentController extends Controller
         $comment->video_id = $videoId;
         $comment->user_id = $user->id;
 
-        $comment->save();
 
+        $comment->save();
+        
+        
         $userName = Auth::user()->name;
         $userImage = Auth::user()->profile_photo_url;
         $commentDate = Carbon::now()->diffForHumans();
         $commentId = $comment->id;
 
         return response()->json(['userName'=>$userName,'userImage'=>$userImage,'commentDate'=>$commentDate,'commentId'=>$commentId]);
+
         
 
     }
