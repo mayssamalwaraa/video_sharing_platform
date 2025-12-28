@@ -100,23 +100,23 @@
                                                 @if (Auth::check())
                                                     @if ($comment->user_id == auth()->user()->id || auth()->user()->administration_level > 0)
                                                         @if (!auth()->user()->block)
-                                                            <form method="GET" action="#" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف التعليق هذا؟')">
+                                                            <form method="GET" action="{{route('comment.destroy',$comment->id)}}" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف التعليق هذا؟')">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>
+                                                                <button type="submit" class="float-left"><i class="bi bi-trash text-danger"></i></button>
                                                             </form>
 
-                                                            <form method="GET" action="#">
+                                                            <form method="GET" action="{{route('comment.edit',$comment->id)}}">
                                                                 @csrf
                                                                 @method('PATCH')
-                                                                <button type="submit" class="float-left"><i class="far fa-edit text-success fa-lg ml-3"></i></button>
+                                                                <button type="submit" class="float-left"><i class="bi bi-pencil text-success"></i></button>
                                                             </form>
                                                         @endif   
                                                     @endif
                                                 @endif
                                                 <p class="mt-3 mb-2"><strong>{{$comment->user->name}}</strong></p> 
-                                                <i class="far fa-clock"></i> <span class="comment_date text-secondary">{{$comment->created_at->diffForHumans()}}</span>
-                                                <p class="mt-3" >{{$comment->body}}</p>
+                                                <i class="bi bi-clock-history"></i> <span class="comment_date text-secondary">{{$comment->created_at->diffForHumans()}}</span>
+                                                <p class="mt-3" ><i class="bi bi-chat-dots"></i>{{$comment->body}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -323,7 +323,11 @@
                 success : function(data) { 
                     $("#comment").val('');
 
-                    
+                    destroyUrl = "{{route('comment.destroy', 'des_id')}}";
+                    destroy = destroyUrl.replace('des_id', data.commentId);
+
+                    editUrl = "{{route('comment.edit', 'id')}}";
+                    url = editUrl.replace('id', data.commentId);
 
                     var html='  <div class="card mt-5 mb-3">\
                                     <div class="card-body">\
@@ -332,15 +336,15 @@
                                                 <img src="'+data.userImage+'" width="150px" class="rounded-full"/>\
                                             </div>\
                                             <div class="col-10">\
-                                                <form method="GET" action="#">\
+                                                <form method="GET" action="'+destroy+'">\
                                                     @csrf\
                                                     @method('DELETE')\
-                                                    <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>\
+                                                    <button type="submit" class="float-left"><i class="bi bi-trash text-danger"></i></button>\
                                                 </form>\
-                                                <form method="GET" action="#">\
+                                                <form method="GET" action="'+url+'">\
                                                     @csrf\
                                                     @method('PATCH')\
-                                                    <button type="submit" class="float-left"><i class="far fa-edit text-success fa-lg ml-3"></i></button>\
+                                                    <button type="submit" class="float-left"><i class="bi bi-pencil text-success ml-3"></i></button>\
                                                 </form>\
                                                 <p class="mt-3 mb-2"><strong>'+data.userName+'</strong></p>\
                                                 <i class="far fa-clock"></i> <span class="comment_date text-secondary">'+data.commentDate+'</span>\

@@ -35,4 +35,23 @@ class CommentController extends Controller
         
 
     }
+    public function destroy($id){
+        $comment = Comment::where('id',$id)->first();
+        $comment->delete();
+        return back()->with('success','تم حذف التعليق بنجاح');
+    }
+    public function edit($id){
+        $comment = Comment::where('id',$id)->first();
+        return view('edit-comment',compact('comment'));
+    }
+    public function update(Request $request, $id){
+        $request->validate([
+            'comment'=>'required',
+        ]);
+        $comment = Comment::where('id',$id)->first();
+        $video_id = $comment->video->id;
+        $comment->body = $request->comment;
+        $comment->save();
+        return redirect('videos/'.$video_id)->with('sucess','تم تعديل التعليق بنجاح');
+    }
 }

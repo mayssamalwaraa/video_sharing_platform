@@ -25,4 +25,8 @@ Route::get('/video/search',[VideoContoller::class,'search'])->name('video.search
 Route::post('/like',[LikeController::class,'likeVideo'])->name('like');
 Route::post('/view',[VideoContoller::class,'addView'])->name('view');
 Route::post('/comment',[CommentController::class,'saveComment'])->name('comment');
+Route::get('/comment/{id}/edit',[CommentController::class,'edit'])->name('comment.edit');
+Route::patch('/comment/{id}',[CommentController::class,'update'])->name('comment.update');
+Route::get('/comment/{id}',[CommentController::class,'destroy'])->name('comment.destroy');
+
 
