@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\VideoContoller;
 use App\Http\Controllers\CommentController;
@@ -37,6 +38,9 @@ Route::get('/comment/{id}',[CommentController::class,'destroy'])->name('comment.
 Route::get('/history',[HistoryContoller::class,'index'])->name('history');
 Route::delete('/history/{id}',[HistoryContoller::class,'destroy'])->name('history.destroy');
 Route::delete('/destroyAll',[HistoryContoller::class,'destroyAll'])->name('history.destroyAll');
+
+Route::get('/channel',[ChannelController::class,'index'])->name('channel.index');
+Route::get('/channel/search',[ChannelController::class,'search'])->name('channel.search');
 
 
 

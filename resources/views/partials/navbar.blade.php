@@ -9,27 +9,31 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
-            <li class="nav-item me-5" style="list-style: none">
+            <li class="nav-item {{request()->is('/') ? 'active':''}} me-5" style="list-style: none">
                 <a class="nav-link active" aria-current="page" href="{{ route('main') }}">
                     <i class="bi bi-house"></i>الصفحة الرئيسية</a>
             </li>
-            <li class="nav-item me-5" style="list-style: none">
+            @auth
+                
+            <li class="nav-item {{request()->is('history') ? 'active':''}} me-5" style="list-style: none">
                 <a class="nav-link active" aria-current="page" href="{{ route('history') }}">
                     <i class="bi bi-clock-history"></i>
                  سجل المشاهدة</a>
             </li>
-            <li class="nav-item me-5" style="list-style: none">
+            <li class="nav-item  me-5" style="list-style: none">
                 <a class="nav-link active" aria-current="page" href="{{ route('videos.create') }}">
                     <i class="bi bi-upload"></i>
                  رفع فيديو</a>
             </li>
-            <li class="nav-item me-5" style="list-style: none">
+            <li class="nav-item {{request()->is('videos') ? 'active':''}} me-5" style="list-style: none">
                 <a class="nav-link active" aria-current="page" href="{{ route('videos.index') }}">
                     <i class="bi bi-person-video2"></i>
                     فيديوهاتي </a>
             </li>
-            <li class="nav-item me-5" style="list-style: none">
-                <a class="nav-link active" aria-current="page" href="{{ url('/') }}">
+            @endauth
+
+            <li class="nav-item {{request()->is('channel*') ? 'active':''}} me-5" style="list-style: none">
+                <a class="nav-link active" aria-current="page" href="{{ route('channel.index') }}">
                     <i class="bi bi-tv"></i>
                 القنوات</a>
             </li>
