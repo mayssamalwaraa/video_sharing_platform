@@ -43,6 +43,14 @@ Route::get('/channel/search',[ChannelController::class,'search'])->name('channel
 
 Route::prefix('/admin')->middleware('can:update-videos')->group(function(){
     Route::get('/',[AdminsController::class,'index'])->name('admin.index');
+    Route::get('/channels',[ChannelController::class,'adminIndex'])->name('channels.index');
+    Route::patch('/{user}/channels',[ChannelController::class,'adminUpdate'])->name('channels.update')->middleware('can:update-users');
+    Route::delete('/channels/{user}',[ChannelController::class,'adminDestroy'])->name('channels.delete')->middleware('can:update-users');
+    Route::patch('/{user}/block',[ChannelController::class,'adminBlock'])->name('channels.block')->middleware('can:update-users');
+
+
+
+
 
 });
 

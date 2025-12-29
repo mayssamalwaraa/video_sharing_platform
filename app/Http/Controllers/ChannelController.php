@@ -17,4 +17,27 @@ class ChannelController extends Controller
         $title='نتائج البحث عن قناة'.$request->term;
         return view('channels',compact('title','channels'));
     }
+    public function adminIndex(){
+        $users = User::all();
+        return view('admin.channels.index',compact('users'));
+    }
+    public function adminUpdate(Request $request,User $user){
+        $user->administration_level = $request->administration_level;
+        $user->save();
+        session()->flash('flash_message','تم تعديل صلاحيات القناة بنجاح');
+        return redirect(route('admin.index'));
+    }
+    public function adminDestroy(User $user){
+        $user->delete();
+        session()->flash('flash_message','تم حذف  القناة بنجاح');
+        return redirect(route('admin.index'));
+    }
+    public function adminBlock(User $user){
+        $user->block = 1;
+        $user->save();
+        session()->flash('flash_message','تم حظر  القناة بنجاح');
+        return redirect(route('admin.index'));
+
+
+    }
 }
