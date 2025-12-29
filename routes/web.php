@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\VideoContoller;
@@ -8,9 +9,7 @@ use App\Http\Controllers\HistoryContoller;
 use App\Http\Controllers\MainContoller;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/admin', function () {
-    return view('theme.default');
-});
+
 
 Route::middleware([
     'auth:sanctum',
@@ -42,5 +41,8 @@ Route::delete('/destroyAll',[HistoryContoller::class,'destroyAll'])->name('histo
 Route::get('/channel',[ChannelController::class,'index'])->name('channel.index');
 Route::get('/channel/search',[ChannelController::class,'search'])->name('channel.search');
 
+Route::prefix('/admin')->middleware('can:update-videos')->group(function(){
+    Route::get('/',[AdminsController::class,'index'])->name('admin.index');
 
+});
 

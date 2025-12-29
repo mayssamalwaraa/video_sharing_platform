@@ -110,6 +110,7 @@
                                         <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                                     </x-responsive-nav-link>
                                     </div>
+                                    <hr>
                                     <!-- Account Management -->
                                     <div>
                                     <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
@@ -118,6 +119,13 @@
                                     {{-- <a href="{{ route('profile.show')}}" class="dropdown-item">الملف الشخصي</a> --}}
                                     </div>
                                     <hr>
+                                    @can('update-videos')
+                                    <div>
+                                        <a href="{{ route('admin.index')}}">لوحة الإدارة</a>
+                                    </div>
+                                    <hr>
+                                        
+                                    @endcan
 
 
                                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

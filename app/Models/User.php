@@ -86,4 +86,10 @@ class User extends Authenticatable
     public function videoInHistory(){
         return $this->belongsToMany(Video::class,'video_user','user_id','video_id')->withTimestamps()->withPivot('id');
     }
+    public function isAdmin(){
+        return $this->administration_level > 0 ? true : false ;
+    }
+    public function isSuperAdmin(){
+        return $this->administration_level > 1 ? true : false ;
+    }
 }

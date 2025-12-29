@@ -1,22 +1,23 @@
-@extends('admin.theme.default')
+@extends('theme.default')
 
-@section('title')
-        الإحصائيات
+@section('heading')
+لوحة التحكم
 @endsection
 
 @section('content')
-    <div class="row">
+    <div class="row justify-content-center">
+
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
+                    <div class="row no-gutters align-items-center text-right">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                 المنشورات</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $posts_count }}</div>
+                            عدد مقاطع الفيديو</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $numberOfVideos }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-book-open fa-2x text-gray-300"></i>
+                            <i class="fas fa-video fa-2x"></i>
                         </div>
                     </div>
                 </div>
@@ -26,52 +27,56 @@
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
+                    <div class="row no-gutters align-items-center text-right">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                المستخدمين</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $users_count }}</div>
+                            عدد القنوات</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $numberOfChannels }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                            <i class="fas fa-film fa-2x"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                التعليقات</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $comments_count }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comment fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                التصنيفات</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $categories_count }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-table fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+
+    <div>
+        {{-- <canvas id="myChart" class="mt-4"></canvas> --}}
+        <canvas id="salesChart" width="400" height="200"></canvas>
+
+    </div>
+@endsection
+
+
+@section('script')
+<script>
+    let names = <?php echo $names; ?>;
+    let totalViews = <?php echo $totalViews; ?>;
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('salesChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: names,
+            datasets: [{
+                label: 'القنوات الأكثر مشاهدة',
+                data: totalViews
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
+</script>
+
 @endsection
