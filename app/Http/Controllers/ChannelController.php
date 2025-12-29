@@ -40,4 +40,16 @@ class ChannelController extends Controller
 
 
     }
+    public function blockedChannels(){
+        $channels = User::where('block',1)->get();
+        return view('admin.channels.blocked-channels',compact('channels'));
+    }
+    public function openBlock(User $user){
+        $user->block = 0;
+        $user->save();
+        session()->flash('flash_message','تم فك حظر  القناة بنجاح');
+        return redirect(route('channels.blocked'));
+
+
+    }
 }
