@@ -43,18 +43,16 @@
 
        
             <ul class="navbar-nav mx-auto">
-                {{-- <div class="topbar" style="z-index:1">
+                <div class="topbar" style="z-index:1">
                     @auth
                                     <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow alert-dropdown mx-1" style="list-style: none">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw fa-lg"></i>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
-                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
-                                </svg>
+
+                                <i class="bi bi-bell-fill"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter notif-count" data-count="{{App\Models\Alert::where('user_id',Auth::user()->id)->first()->alert}}">{{App\Models\Alert::where('user_id',Auth::user()->id)->first()->alert}}</span>
+                                <span class="badge badge-danger badge-counter notif-count"  data-count="0">0</span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right text-right mt-2 mr-auto"
@@ -62,12 +60,12 @@
                                 <div class="alert-body">
                                     
                                 </div>
-                                <a class="dropdown-item text-center small text-gray-500" href="{{ route('all.Notification')}}">عرض جميع الإشعارات</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">عرض جميع الإشعارات</a>
                             </div>
                         </li>
                     @endauth
 
-                </div> --}}
+                </div>
                     @guest
                     <li class="nav-item" style="list-style: none">
                         <a href="{{route('login')}}" class="nav-link">

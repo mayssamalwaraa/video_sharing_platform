@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css')}}">
     <link href="cdn.jsdelivr.net" rel="stylesheet">
     <link href="cdn.jsdelivr.net" rel="stylesheet">
+    <link rel="stylesheet" href="{!! asset('theme/css/sb-admin-2.css') !!}">
 
 
 </head>
@@ -35,7 +36,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+       <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+  <script>
 
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('b1439fc8628bb967006a', {
+      cluster: 'mt1'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      alert(JSON.stringify(data));
+    });
+  </script>
 
 </body>
 </html>
