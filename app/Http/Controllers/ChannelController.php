@@ -52,4 +52,8 @@ class ChannelController extends Controller
 
 
     }
+    public function allChannels(){
+        $channels = User::all()->sortByDesc('created_at');
+        return view('admin.channels.all',compact('channels')); 
+    }
 }

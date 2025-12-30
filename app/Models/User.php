@@ -92,4 +92,7 @@ class User extends Authenticatable
     public function isSuperAdmin(){
         return $this->administration_level > 1 ? true : false ;
     }
+    public function views(){
+        return $this->hasMany(View::class);
+    }
 }
