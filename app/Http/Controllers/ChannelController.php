@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Video;
+use App\Models\View;
 use Illuminate\Http\Request;
 
 class ChannelController extends Controller
@@ -55,5 +57,19 @@ class ChannelController extends Controller
     public function allChannels(){
         $channels = User::all()->sortByDesc('created_at');
         return view('admin.channels.all',compact('channels')); 
+    }
+    public function mostViewedVideos(){
+        $mostViewedVideos = View::orderBy('views_number','Desc')
+                            ->take(10)
+                            ->get(['user_id','video_id','views_number']);
+        $videoNames=[];
+        $videoViews=[];
+        foreach($mostViewedVideos as $view){
+            array_push($videoNames,Video::findOrFail($view->video_id)->title);
+            array_push($videoViews,$view->views_number);
+
+        }
+        return view('admin.most-Viewed-Videos',compact('mostViewedVideos'))->with('videoNames',json_encode($videoNames,JSON_NUMERIC_CHECK))->with('videoViews',json_encode($videoViews,JSON_NUMERIC_CHECK));
+
     }
 }

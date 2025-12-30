@@ -50,6 +50,8 @@ Route::prefix('/admin')->middleware('can:update-videos')->group(function(){
     Route::get('/channels/blocked',[ChannelController::class,'blockedChannels'])->name('channels.blocked')->middleware('can:update-users');
     Route::patch('/{user}/open',[ChannelController::class,'openBlock'])->name('channels.open.block')->middleware('can:update-users');
     Route::get('/allChannels',[ChannelController::class,'allChannels'])->name('channels.all')->middleware('can:update-users');
+    Route::get('/mostViewedVideos',[ChannelController::class,'mostViewedVideos'])->name('most.viewed.videos')->middleware('can:update-users');
+
 
 
 
