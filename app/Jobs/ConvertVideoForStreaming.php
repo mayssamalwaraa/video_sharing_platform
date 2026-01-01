@@ -3,6 +3,7 @@
 
 namespace App\Jobs;
 
+use App\Events\RealNotification;
 use App\Models\Convertedvideo;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -173,6 +174,10 @@ class ConvertVideoForStreaming implements ShouldQueue
     }
     $convertVideo->video_id=$this->video->id;
     $convertVideo->save();
+    $data = [
+        'video_title'=>$this->video->title,
+    ];
+    event(new RealNotification($data));
     $this->video->update(
         [
             'processed'=>true,
