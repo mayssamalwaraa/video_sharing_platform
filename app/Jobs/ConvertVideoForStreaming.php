@@ -5,6 +5,7 @@ namespace App\Jobs;
 
 use App\Events\RealNotification;
 use App\Models\Convertedvideo;
+use App\Models\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use App\Models\Video;
@@ -174,6 +175,10 @@ class ConvertVideoForStreaming implements ShouldQueue
     }
     $convertVideo->video_id=$this->video->id;
     $convertVideo->save();
+    $notification = new Notification();
+    $notification->user_id = $this->video->user_id;
+    $notification->notification = $this->video->title;
+    $notification->save();
     $data = [
         'video_title'=>$this->video->title,
     ];
