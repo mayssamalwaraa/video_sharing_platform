@@ -42,7 +42,10 @@ Route::delete('/destroyAll',[HistoryContoller::class,'destroyAll'])->name('histo
 
 Route::get('/channel',[ChannelController::class,'index'])->name('channel.index');
 Route::get('/channel/search',[ChannelController::class,'search'])->name('channel.search');
+
 Route::post('/notification',[NotificationController::class,'index'])->name('notification')->middleware('auth');
+Route::get('/allNotfifcation',[NotificationController::class,'allNotification'])->name('all.notification');
+
 Route::prefix('/admin')->middleware('can:update-videos')->group(function(){
     Route::get('/',[AdminsController::class,'index'])->name('admin.index');
     Route::get('/channels',[ChannelController::class,'adminIndex'])->name('channels.index');

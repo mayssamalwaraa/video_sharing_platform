@@ -3,7 +3,9 @@
 
 namespace App\Jobs;
 
+use App\Events\FailedNotification;
 use App\Events\RealNotification;
+use App\Models\Alert;
 use App\Models\Convertedvideo;
 use App\Models\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -192,6 +194,24 @@ class ConvertVideoForStreaming implements ShouldQueue
             'quality'=>$quality,
         ]
     );
+
+
+    }
+    public function failed(){
+        $notification = new Notification();
+        $notification->user_id = $this->video->user_id;
+        $notification->notification = $this->video->title;
+        $notification->success = false;
+        $notification->save();
+        $data =[
+            'video_title' =>$this->video->title,
+        ];
+        event(new FailedNotification($data));
+
+        // $alert = Alert::where('user_id',$this->video->user_id)->first();
+        // $alert++;
+        // $alert->save();
+        
 
 
     }
