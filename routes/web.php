@@ -58,7 +58,7 @@ Route::prefix('/admin')->middleware('can:update-videos')->group(function(){
     Route::get('/mostViewedVideos',[ChannelController::class,'mostViewedVideos'])->name('most.viewed.videos')->middleware('can:update-users');
 
 
-
+    // the end 
 
 
 
